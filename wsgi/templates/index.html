@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Hi!</h1>
+{% for user in users %}
+ {% if user == "Angel" %}
+<div><p>{{user}}</b></p></div>
+ {% else %}
+<div><p>User Name: {{user.uname}} First Name: {{user.fname}}</b></p></div> 
+ {% endif %}
+{% endfor %}
+{% endblock %}

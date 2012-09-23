@@ -1,0 +1,14 @@
+<html>
+  <head>
+    {% if title %}
+    <title>{{title.first}}</title>
+    {% else %}
+    <title>regular</title>
+    {% endif %}
+  </head>
+  <body>
+    <div>Hyper Page Tutorial - MongoDB Status: {{conn}}</div>
+    <hr>
+    {% block content %}{% endblock %}
+  </body>
+</html>
