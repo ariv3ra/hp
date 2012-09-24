@@ -1,7 +1,14 @@
+import os
 from flask import Flask
 from flask import render_template
 from pymongo import Connection
 from pymongo.errors import ConnectionFailure
+
+HOST = os.environ['OPENSHIFT_NOSQL_DB_HOST']
+PORT = int(os.environ['OPENSHIFT_NOSQL_DB_PORT'])
+DB_USER = os.environ['OPENSHIFT_NOSQL_DB_USERNAME']
+DB_PWD = os.environ['OPENSHIFT_NOSQL_DB_PASSWORD']
+DB_NAME = os.environ[hp]
 
 app = Flask(__name__)
 
@@ -10,12 +17,13 @@ app = Flask(__name__)
 def index():
     title = {"first":"Tutorial 01","second":"Tutorial 02"}
     #users = ["Angel","Kristin","Etienne"]
-    c = Connection(host="localhost", port=27018)
-    
-	# Get a Database handle to a database named "mydb"
-    dbh = c["hp"]
-    assert dbh.connection == c
-    users = dbh.users.find({})
+    c = pymongo.Connection(host=HOST,port=PORT)
+	mdb = c["hp"]
+	# Get a Database handler to a database named "mydb"
+    mdb.authenticate(DB_USER,DB_PWD)
+
+    assert mdb.connection == c
+    users = mdb.users.find({})
 
 
     conn = "Connected successfully"
