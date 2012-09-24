@@ -8,7 +8,7 @@ HOST = os.environ['OPENSHIFT_NOSQL_DB_HOST']
 PORT = int(os.environ['OPENSHIFT_NOSQL_DB_PORT'])
 DB_USER = os.environ['OPENSHIFT_NOSQL_DB_USERNAME']
 DB_PWD = os.environ['OPENSHIFT_NOSQL_DB_PASSWORD']
-DB_NAME = os.environ[hp]
+DB_NAME = os.environ['hp']
 
 app = Flask(__name__)
 
@@ -17,8 +17,8 @@ app = Flask(__name__)
 def index():
     title = {"first":"Tutorial 01","second":"Tutorial 02"}
     #users = ["Angel","Kristin","Etienne"]
-    c = pymongo.Connection(host=HOST,port=PORT)
-	mdb = c["hp"]
+    c = Connection(host=HOST,port=PORT)
+	mdb = c[DB_NAME]
 	# Get a Database handler to a database named "mydb"
     mdb.authenticate(DB_USER,DB_PWD)
 
