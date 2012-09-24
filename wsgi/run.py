@@ -18,7 +18,7 @@ def index():
     title = {"first":"Tutorial 01","second":"Tutorial 02"}
     #users = ["Angel","Kristin","Etienne"]
     c = Connection(host=HOST,port=PORT)
-	mdb = c[DB_NAME]
+    mdb = c[DB_NAME]
 	# Get a Database handler to a database named "mydb"
     mdb.authenticate(DB_USER,DB_PWD)
 
