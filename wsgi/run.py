@@ -1,29 +1,32 @@
 import os
 from flask import Flask
 from flask import render_template
-from pymongo import Connection
-from pymongo.errors import ConnectionFailure
+from flask.ext.pymongo import PyMongo
 
+app = Flask(__name__)
+
+#Build the varibles that use the assigned environment variables
 HOST = os.environ['OPENSHIFT_NOSQL_DB_HOST']
 PORT = int(os.environ['OPENSHIFT_NOSQL_DB_PORT'])
 DB_USER = os.environ['OPENSHIFT_NOSQL_DB_USERNAME']
 DB_PWD = os.environ['OPENSHIFT_NOSQL_DB_PASSWORD']
 DB_NAME = 'hp' #data base name
 
-app = Flask(__name__)
+app.config['MDB_HOST'] = HOST
+app.config['MDB_PORT'] = PORT
+app.config['MDB_USERNAME'] = DB_USER
+app.config['MDB_PASSWORD'] = DB_PWD
+app.config['MDB_DBNAME'] = DB_NAME
+
+mdb = PyMongo(app, config_prefix='MDB')
 
 @app.route("/")
 @app.route("/index")
 def index():
-    title = {"first":"Tutorial 01","second":"Tutorial 02"}
+    title = {"first":"Tutorial 01-Flask-Pymongo extension","second":"Tutorial 02"}
     #users = ["Angel","Kristin","Etienne"]
-    c = Connection(host=HOST,port=PORT)
-    mdb = c[DB_NAME]
-	# Get a Database handler to a database named "mydb"
-    mdb.authenticate(DB_USER,DB_PWD)
-
-    assert mdb.connection == c
-    users = mdb.users.find({})
+    
+    users = mdb.db.users.find({})
     
     conn = "Connected successfully"
 
