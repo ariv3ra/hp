@@ -8,7 +8,7 @@ HOST = os.environ['OPENSHIFT_NOSQL_DB_HOST']
 PORT = int(os.environ['OPENSHIFT_NOSQL_DB_PORT'])
 DB_USER = os.environ['OPENSHIFT_NOSQL_DB_USERNAME']
 DB_PWD = os.environ['OPENSHIFT_NOSQL_DB_PASSWORD']
-DB_NAME = os.environ['hp']
+DB_NAME = 'hp'
 
 app = Flask(__name__)
 
