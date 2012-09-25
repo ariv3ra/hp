@@ -34,16 +34,16 @@ def record():
     users = mdb.db.users.find({})
     return render_template("record.html",users = users)
 
+#route to post data that is associated in the role collection
 @app.route("/associate", methods=["GET","POST"])
-def associate():
-    
-    uid = request.form['uid']
-    lst = request.form['listed']
+def associate():    
+    uid = request.form['uid'] #Get the data from the user drop down
+    lst = request.form['listed']#Get the data from the roles dropdown
+    role = {"uid":uid,"role":lst}#Build the document to be saved
     #insert into the mongodb
-    role = {"uid":uid,"role":lst}
     mdb.db.role.insert(role)
-    #inUser = mdb.db.role.find({})
+    #inUser = mdb.db.role.find({}) #Here we need to query the information inserted
     return render_template("associate.html",uid = uid,lst = lst)
-
+    
 if __name__ == "__main__":
     app.run(debug = "True")
