@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Record the association</h1>
+
+ <div>
+ <p>here is the list of names</p>
+ <form action='/associate' method='post'>
+   <select name="uid">
+   {% for user in users %}
+     <option value="{{user._id}}">{{user.uname}} | {{user.fname}} {{user.lname}}</option>
+   {% endfor %}  
+   </select>
+ </div>
+ <div>
+ <select name="listed">
+     <option value="admin">Admin</option> 
+     <option value="poweruser">Power User</option>
+     <option value="user">User</option>
+   </select>
+ </div>
+ <input type="submit" value="Submit">
+ 
+</form>
+{% endblock %}
