@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flask import render_template
+from flask import request
 from flask.ext.pymongo import PyMongo
 
 app = Flask(__name__)
@@ -18,20 +19,31 @@ app.config['MDB_USERNAME'] = DB_USER
 app.config['MDB_PASSWORD'] = DB_PWD
 app.config['MDB_DBNAME'] = DB_NAME
 
-mdb = PyMongo(app, config_prefix='MDB')
+mdb = PyMongo(app, config_prefix='MDB') #Create instance of PyMongo object
 
 @app.route("/")
 @app.route("/index")
 def index():
-    title = {"first":"Tutorial 01-Flask-Pymongo extension","second":"Tutorial 02"}
-    #users = ["Angel","Kristin","Etienne"]
-    
+    title = {"first":"Tutorial 01-Flask-Pymongo extension","second":"Tutorial 02"}    
     users = mdb.db.users.find({})
-    
     conn = "Connected successfully"
-
     return render_template("index.html",title = title,users = users,conn = conn)
 
+@app.route("/record", methods=["GET","POST"])
+def record():
+    users = mdb.db.users.find({})
+    return render_template("record.html",users = users)
+
+@app.route("/associate", methods=["GET","POST"])
+def associate():
+    
+    uid = request.form['uid']
+    lst = request.form['listed']
+    #insert into the mongodb
+    role = {"uid":uid,"role":lst}
+    mdb.db.role.insert(role)
+    #inUser = mdb.db.role.find({})
+    return render_template("associate.html",uid = uid,lst = lst)
 
 if __name__ == "__main__":
     app.run(debug = "True")
