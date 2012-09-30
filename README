@@ -52,3 +52,6 @@ Notes about setup.py
 
 Adding deps to the install_requires will have the openshift server actually
 install those deps at git push time.
+
+
+These are my tests
