@@ -4,6 +4,7 @@ from flask import render_template
 from flask import request
 from flask.ext.pymongo import PyMongo
 
+#Create an instance of flask
 app = Flask(__name__)
 
 #Build the varibles that use the assigned environment variables
